@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{59E5F99A-6EE5-410B-9C2D-580FD9F72259}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Flowers_ADCSeries</RootNamespace>
+    <AssemblyName>Flowers%27 ADC Series</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HesaEngine.Core">
+      <HintPath>..\..\..\..\HE\HesaEngine.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX">
+      <HintPath>..\..\..\..\HE\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D9">
+      <HintPath>..\..\..\..\HE\SharpDX.Direct3D9.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput">
+      <HintPath>..\..\..\..\HE\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MyActivator\AutoLevels.cs" />
+    <Compile Include="MyActivator\Cleanese.cs" />
+    <Compile Include="MyActivator\Defensives.cs" />
+    <Compile Include="MyActivator\Offensives.cs" />
+    <Compile Include="MyActivator\Potions.cs" />
+    <Compile Include="MyBase\MyChampion.cs" />
+    <Compile Include="MyBase\SpellManager.cs" />
+    <Compile Include="MyCommon\MyDamageCalculate.cs" />
+    <Compile Include="MyCommon\MyExtensions.cs" />
+    <Compile Include="MyCommon\MyGeometry.cs" />
+    <Compile Include="MyCommon\MyManaManager.cs" />
+    <Compile Include="MyCommon\MyMenuExtensions.cs" />
+    <Compile Include="MyLoader.cs" />
+    <Compile Include="MyBase\MyLogic.cs" />
+    <Compile Include="MyPlugin\Ashe.cs" />
+    <Compile Include="MyPlugin\Caitlyn.cs" />
+    <Compile Include="MyPlugin\Corki.cs" />
+    <Compile Include="MyPlugin\Draven.cs" />
+    <Compile Include="MyPlugin\Ezreal.cs" />
+    <Compile Include="MyPlugin\Graves.cs" />
+    <Compile Include="MyPlugin\Jayce.cs" />
+    <Compile Include="MyPlugin\Jhin.cs" />
+    <Compile Include="MyPlugin\Jinx.cs" />
+    <Compile Include="MyPlugin\Kalista.cs" />
+    <Compile Include="MyPlugin\Kindred.cs" />
+    <Compile Include="MyPlugin\KogMaw.cs" />
+    <Compile Include="MyPlugin\Lucian.cs" />
+    <Compile Include="MyPlugin\MissFortune.cs" />
+    <Compile Include="MyPlugin\Quinn.cs" />
+    <Compile Include="MyPlugin\Sivir.cs" />
+    <Compile Include="MyPlugin\Teemo.cs" />
+    <Compile Include="MyPlugin\Tristana.cs" />
+    <Compile Include="MyPlugin\TwistedFate.cs" />
+    <Compile Include="MyPlugin\Twitch.cs" />
+    <Compile Include="MyPlugin\Urgot.cs" />
+    <Compile Include="MyPlugin\Varus.cs" />
+    <Compile Include="MyPlugin\Vayne.cs" />
+    <Compile Include="MyPlugin\Xayah.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
