@@ -1,5 +1,0 @@
-C:\Users\Hesa\Documents\Git\HesaEngine\HesaEngine\Default Scripts\Flowers_ADCSeries\bin\Debug\Flowers ADC Series.dll
-C:\Users\Hesa\Documents\Git\HesaEngine\HesaEngine\Default Scripts\Flowers_ADCSeries\bin\Debug\Flowers ADC Series.pdb
-C:\Users\Hesa\Documents\Git\HesaEngine\HesaEngine\Default Scripts\Flowers_ADCSeries\obj\Debug\Flowers_ADCSeries.csprojResolveAssemblyReference.cache
-C:\Users\Hesa\Documents\Git\HesaEngine\HesaEngine\Default Scripts\Flowers_ADCSeries\obj\Debug\Flowers ADC Series.dll
-C:\Users\Hesa\Documents\Git\HesaEngine\HesaEngine\Default Scripts\Flowers_ADCSeries\obj\Debug\Flowers ADC Series.pdb
