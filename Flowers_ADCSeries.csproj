@@ -31,16 +31,19 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HesaEngine.Core">
+      <HintPath>..\..\HesaEngine\Dependencies\HesaEngine.Core.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX">
-      <HintPath>..\..\SharpDX.dll</HintPath>
+      <HintPath>..\..\HesaEngine\Dependencies\SharpDX.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>..\..\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>..\..\HesaEngine\Dependencies\SharpDX.Direct3D9.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpDX.DirectInput">
-      <HintPath>..\..\SharpDX.DirectInput.dll</HintPath>
+      <HintPath>..\..\HesaEngine\Dependencies\SharpDX.DirectInput.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -93,13 +96,6 @@
     <Compile Include="MyPlugin\Vayne.cs" />
     <Compile Include="MyPlugin\Xayah.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\HesaEngine.Core\HesaEngine.Core.csproj">
-      <Project>{117b998f-a693-4933-84de-b81356ca6a0f}</Project>
-      <Name>HesaEngine.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="TODO.txt" />

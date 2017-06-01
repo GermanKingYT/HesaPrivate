@@ -26,7 +26,7 @@
             R = new Spell(SpellSlot.R, 2000f);
 
             Q.SetSkillshot(0.50f, 50f, 2000f, false, SkillshotType.SkillshotLine);
-			W.SetSkillShot(1.00f, 100f, 800f, false, SkillShotType.SkillshotCircle);			
+			W.SetSkillshot(1.00f, 100f, 800f, false, SkillshotType.SkillshotCircle);			
             E.SetSkillshot(0.25f, 60f, 1600f, true, SkillshotType.SkillshotLine);
 
             ComboOption.AddQ();
