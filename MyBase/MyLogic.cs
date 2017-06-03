@@ -21,8 +21,8 @@ namespace Flowers_ADCSeries.MyBase
         internal static Spell R1 { get; set; }
         internal static Spell EQ { get; set; }
 
-        internal static int lastQTime { get; set; } = 0;
-        internal static int lastWTime { get; set; } = 0;
+        internal static int LastCastTickQ { get; set; } = 0;
+        internal static int LastCastTickW { get; set; } = 0;
         internal static int lastETime { get; set; } = 0;
         internal static int lastRTime { get; set; } = 0;
         internal static int lastCastTime { get; set; } = 0;

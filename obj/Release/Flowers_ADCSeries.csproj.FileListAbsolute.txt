@@ -1,0 +1,9 @@
+D:\Github Repos\HesaPrivate\bin\Release\Flowers ADC Series.dll
+D:\Github Repos\HesaPrivate\bin\Release\Flowers ADC Series.pdb
+D:\Github Repos\HesaPrivate\bin\Release\HesaEngine.Core.dll
+D:\Github Repos\HesaPrivate\bin\Release\HesaEngine.Wrapper.dll
+D:\Github Repos\HesaPrivate\bin\Release\Runtime.dll
+D:\Github Repos\HesaPrivate\bin\Release\HesaEngine.Core.dll.config
+D:\Github Repos\HesaPrivate\obj\Release\Flowers ADC Series.dll
+D:\Github Repos\HesaPrivate\obj\Release\Flowers ADC Series.pdb
+D:\Github Repos\HesaPrivate\obj\Release\Flowers_ADCSeries.csprojResolveAssemblyReference.cache

@@ -217,7 +217,7 @@
                             Q.Cast(qPred.CastPosition, true);
                     }
 
-                if (ComboOption.UseW && W.IsReady() && Utils.TickCount - lastWTime > 2000)
+                if (ComboOption.UseW && W.IsReady() && Utils.TickCount - LastCastTickW > 2000)
                     if (NavMesh.IsGrass(target.ServerPosition) && !target.IsVisible)
                         if (ComboOption.GetBool("ComboMana"))
                         {
@@ -420,7 +420,7 @@
                 return;
 
             if (Args.SData.Name == "KalistaW")
-                lastWTime = Utils.TickCount;
+                LastCastTickW = Utils.TickCount;
 
             if (Args.SData.Name == "KalistaExpunge" || Args.SData.Name == "KalistaExpungeWrapper" || Args.SData.Name == "KalistaDummySpell")
                 lastETime = Utils.TickCount;

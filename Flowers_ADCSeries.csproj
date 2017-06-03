@@ -32,18 +32,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HesaEngine.Core">
-      <HintPath>..\..\HesaEngine\Dependencies\HesaEngine.Core.dll</HintPath>
+      <HintPath>..\..\Hacks\League of Legends\HesaEngine\Dependencies\HesaEngine.Core.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>..\..\HesaEngine\Dependencies\SharpDX.dll</HintPath>
+      <HintPath>..\..\Hacks\League of Legends\HesaEngine\Dependencies\SharpDX.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>..\..\HesaEngine\Dependencies\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>..\..\Hacks\League of Legends\HesaEngine\Dependencies\SharpDX.Direct3D9.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SharpDX.DirectInput">
-      <HintPath>..\..\HesaEngine\Dependencies\SharpDX.DirectInput.dll</HintPath>
+      <HintPath>..\..\Hacks\League of Legends\HesaEngine\Dependencies\SharpDX.DirectInput.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

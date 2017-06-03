@@ -88,10 +88,7 @@
 
         private static void OnUpdate()
         {
-            if (Me.IsDead || Me.IsRecalling())
-            {
-                return;
-            }
+            if (Me.IsDead || Me.IsRecalling()) { return; }
 
             R.Range = 500 * R.Level + 1500;
 
@@ -109,50 +106,40 @@
 
             Orbwalker.Move = true;
 
-            if (MiscOption.GetKey("EQKey"))
-            {
-                OneKeyEQ();
-            }
+            if (MiscOption.GetKey("EQKey")) { OneKeyEQ(); }
 
-            if (MiscOption.GetKey("SemiR") && R.IsReady())
-            {
-                OneKeyCastR();
-            }
+            if (MiscOption.GetKey("SemiR") && R.IsReady()) { OneKeyCastR(); }
 
             Auto();
             KillSteal();
 
-            if (isComboMode)
-                Combo();
+            if (isComboMode) { Combo(); }
 
-            if (isHarassMode)
-                Harass();
+            if (isHarassMode) { Harass(); }
 
             if (isFarmMode)
             {
                 FarmHarass();
 
-                if (isLaneClearMode)
-                    LaneClear();
+                if (isLaneClearMode) { LaneClear(); } 
 
-                if (isJungleClearMode)
-                    JungleClear();
+                if (isJungleClearMode) { JungleClear(); }
             }
         }
 
 
         private static void OneKeyCastR()
         {
-            var select = TargetSelector.GetSelectedTarget();
-            var target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Physical);
+            var _SelectedTarget = TargetSelector.GetSelectedTarget();
+            var _Target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Physical);
 
-            if (select != null && target.IsValidTarget(R.Range))
+            if (_SelectedTarget != null && _SelectedTarget.IsValidTarget(R.Range))
             {
-                R.CastOnUnit(select);
+                R.CastOnUnit(_SelectedTarget);
             }
-            else if (select == null && target != null && target.IsValidTarget(R.Range))
+            else if (_Target != null && _Target.IsValidTarget(R.Range))
             {
-                R.CastOnUnit(target);
+                R.CastOnUnit(_Target);
             }
         }
 
@@ -160,11 +147,10 @@
         {
             if (MiscOption.GetBool("AutoQ") && Q.IsReady() && !isComboMode && !isHarassMode)
             {
-                var target = TargetSelector.GetTarget(Q.Range - 30, TargetSelector.DamageType.Physical);
-
-                if (target.IsValidTarget(Q.Range) && !target.CanMoveMent())
+                var _Target = TargetSelector.GetTarget(Q.Range - 30, TargetSelector.DamageType.Physical);
+               if (_Target.IsValidTarget(Q.Range) && !_Target.CanMoveMent())
                 {
-                    SpellManager.PredCast(Q, target);
+                    SpellManager.PredCast(Q, _Target);
                 }
             }
 
@@ -172,36 +158,29 @@
             {
                 if (MiscOption.GetBool("AutoWCC"))
                 {
-                    foreach (
-                        var target in
-                        ObjectManager.Heroes.Enemies.Where(
-                            x => x.IsValidTarget(W.Range) && !x.CanMoveMent() && !x.HasBuff("caitlynyordletrapinternal")))
+                    foreach (var _Target in ObjectManager.Heroes.Enemies.Where(x => x.IsValidTarget(W.Range) && !x.CanMoveMent() && !x.HasBuff("caitlynyordletrapinternal")))
                     {
-                        if (Utils.TickCount - lastWTime > 1500)
+                        if (Utils.TickCount - LastCastTickW > 1500)
                         {
-                            W.Cast(target.Position, true);
+                            W.Cast(_Target.Position, true);
                         }
                     }
                 }
 
                 if (MiscOption.GetBool("AutoWTP"))
                 {
-                    var obj =
-                        ObjectManager
-                            .Get<Obj_AI_Base>()
-                            .FirstOrDefault(x => !x.IsAlly && !x.IsMe && x.DistanceToPlayer() <= W.Range &&
-                                                 x.Buffs.Any(
-                                                     a =>
-                                                         a.Name.ToLower().Contains("teleport") || // tp
-                                                         a.Name.ToLower().Contains("gate")) && // tf r
-                                                 !ObjectManager.Get<Obj_AI_Base>()
-                                                     .Any(b => b.Name.ToLower().Contains("trap") && b.Distance(x) <= 150));
+                    var _Object = ObjectManager.Get<Obj_AI_Base>().FirstOrDefault(x => !x.IsAlly 
+                        && !x.IsMe 
+                        && x.DistanceToPlayer() <= W.Range 
+                        && x.Buffs.Any(a =>a.Name.ToLower().Contains("teleport") || a.Name.ToLower().Contains("gate")) 
+                        && !ObjectManager.Get<Obj_AI_Base>().Any(b => b.Name.ToLower().Contains("trap") 
+                        && b.Distance(x) <= 150));
 
-                    if (obj != null)
+                    if (_Object != null)
                     {
-                        if (Utils.TickCount - lastWTime > 1500)
+                        if (Utils.TickCount - LastCastTickW > 1500)
                         {
-                            W.Cast(obj.Position, true);
+                            W.Cast(_Object.Position, true);
                         }
                     }
                 }
@@ -212,155 +191,131 @@
         {
             if (KillStealOption.UseQ && Q.IsReady())
             {
-                foreach (
-                    var target in
-                    ObjectManager.Heroes.Enemies.Where(
-                        x => x.IsValidTarget(Q.Range) && x.Health < Q.GetDamage(x)))
+                foreach (var _Target in ObjectManager.Heroes.Enemies.Where(x => x.IsValidTarget(Q.Range) && x.Health < Q.GetDamage(x)))
                 {
-                    if (Orbwalker.InAutoAttackRange(target) && target.Health <= Me.GetAutoAttackDamage(target, true))
+                    if (Orbwalker.InAutoAttackRange(_Target) && _Target.Health <= Me.GetAutoAttackDamage(_Target, true))
                     {
-                        continue;
-                    }
-
-                    if (!target.IsUnKillable())
-                    {
-                        SpellManager.PredCast(Q, target);
-                    }           
+                        if (!_Target.IsUnKillable())
+                        {
+                            SpellManager.PredCast(Q, _Target);
+                        }
+                    }     
                 }
             }
         }
 
         private static void Combo()
         {
-            var target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Physical);
-
-            if (target.IsValidTarget(R.Range))
+            var _Target = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Physical);
+            if (_Target.IsValidTarget(R.Range))
             {
-                if (ComboOption.UseE && E.IsReady() && target.IsValidTarget(700))
+                if (ComboOption.UseE && E.IsReady() && _Target.IsValidTarget(700))
                 {
-                    var ePred = E.GetPrediction(target);
+                    var ePred = E.GetPrediction(_Target);
 
                     if (ePred.CollisionObjects.Count == 0 || ePred.Hitchance >= HitChance.VeryHigh)
                     {
                         if (ComboOption.UseQ && Q.IsReady())
                         {
-                            if (E.Cast(target).IsCasted())
+                            if (E.Cast(_Target).IsCasted())
                             {
-                                Q.Cast(target);
+                                Q.Cast(_Target);
                             }
                         }
                         else
                         {
-                            E.Cast(target);
+                            E.Cast(_Target);
                         }
                     }
                     else
                     {
-                        if (ComboOption.UseQ && Q.IsReady() && target.IsValidTarget(Q.Range))
+                        if (ComboOption.UseQ && Q.IsReady() && _Target.IsValidTarget(Q.Range))
                         {
-                            if (target.DistanceToPlayer() >= ComboOption.GetSlider("ComboQRange"))
+                            if (_Target.DistanceToPlayer() >= ComboOption.GetSlider("ComboQRange"))
                             {
-                                SpellManager.PredCast(Q, target);
-
+                                SpellManager.PredCast(Q, _Target);
                                 if (ComboOption.GetSlider("ComboQCount") != 0 && Me.CountEnemiesInRange(Q.Range) >= ComboOption.GetSlider("ComboQCount"))
                                 {
-                                    Q.CastIfWillHit(target, ComboOption.GetSlider("ComboQCount"), true);
+                                    Q.CastIfWillHit(_Target, ComboOption.GetSlider("ComboQCount"), true);
                                 }
                             }
                         }
                     }
                 }
 
-                if (ComboOption.UseQ && Q.IsReady() && !E.IsReady() && target.IsValidTarget(Q.Range) &&
-                    target.DistanceToPlayer() >= ComboOption.GetSlider("ComboQRange"))
+                if (ComboOption.UseQ && Q.IsReady() && !E.IsReady() && _Target.IsValidTarget(Q.Range) && _Target.DistanceToPlayer() >= ComboOption.GetSlider("ComboQRange"))
                 {
-                    if (target.DistanceToPlayer() >= ComboOption.GetSlider("ComboQRange"))
+                    if (_Target.DistanceToPlayer() >= ComboOption.GetSlider("ComboQRange"))
                     {
-                        SpellManager.PredCast(Q, target);
-
+                        SpellManager.PredCast(Q, _Target);
                         if (ComboOption.GetSlider("ComboQCount") != 0 && Me.CountEnemiesInRange(Q.Range) >= ComboOption.GetSlider("ComboQCount"))
                         {
-                            Q.CastIfWillHit(target, ComboOption.GetSlider("ComboQCount"), true);
+                            Q.CastIfWillHit(_Target, ComboOption.GetSlider("ComboQCount"), true);
                         }
                     }
                 }
 
-                if (ComboOption.UseW && W.IsReady() && target.IsValidTarget(W.Range) &&
-                    W.Instance.CurrentCharge >= ComboOption.GetSlider("ComboWCount"))
+                if (ComboOption.UseW && W.IsReady() && _Target.IsValidTarget(W.Range) && W.Instance.SpellData.SpellDataInfos.AmmoUsed >= ComboOption.GetSlider("ComboWCount"))
                 {
-                    if (Utils.TickCount - lastWTime > 1500)
+                    if (Utils.TickCount - LastCastTickW > 1500)
                     {
-                        if (target.IsFacing(Me))
+                        if (_Target.IsFacing(Me))
                         {
-                            if (target.IsMelee() && target.DistanceToPlayer() < target.AttackRange + 100)
+                            if (_Target.IsMelee() && _Target.DistanceToPlayer() < _Target.AttackRange + 100)
                             {
                                 W.Cast(Me.Position, true);
                             }
                             else
                             {
-                                var wPred = W.GetPrediction(target);
-
-                                if (wPred.Hitchance >= HitChance.VeryHigh && target.IsValidTarget(W.Range))
+                                var _PredictionW = W.GetPrediction(_Target);
+                                if (_PredictionW.Hitchance >= HitChance.VeryHigh && _Target.IsValidTarget(W.Range))
                                 {
-                                    W.Cast(wPred.CastPosition, true);
+                                    W.Cast(_PredictionW.CastPosition, true);
                                 }
                             }
                         }
                         else
                         {
-                            var wPred = W.GetPrediction(target);
-
-                            if (wPred.Hitchance >= HitChance.VeryHigh && target.IsValidTarget(W.Range))
+                            var _PredictionW = W.GetPrediction(_Target);
+                            if (_PredictionW.Hitchance >= HitChance.VeryHigh && _Target.IsValidTarget(W.Range))
                             {
-                                W.Cast(wPred.CastPosition + Vector3.Normalize(target.ServerPosition - Me.ServerPosition) * 100, true);
+                                W.Cast(_PredictionW.CastPosition + Vector3.Normalize(_Target.ServerPosition - Me.ServerPosition) * 100, true);
                             }
                         }
                     }
                 }
 
-                if (ComboOption.UseR && R.IsReady() && Utils.TickCount - lastQTime > 2500)
+                if (ComboOption.UseR && R.IsReady() && Utils.TickCount - LastCastTickQ > 2500)
                 {
-                    if (ComboOption.GetBool("ComboRSafe") && (Me.UnderTurret(true) || Me.CountEnemiesInRange(1000) > 2))
-                    {
-                        return;
-                    }
+                    if (ComboOption.GetBool("ComboRSafe")) { if (!Me.UnderTurret(true)) { return; } }
 
-                    if (!target.IsValidTarget(R.Range))
-                    {
-                        return;
-                    }
+                    if (!_Target.IsValidTarget(R.Range)) { return; }
 
-                    if (target.DistanceToPlayer() < ComboOption.GetSlider("ComboRRange"))
-                    {
-                        return;
-                    }
+                    if (_Target.DistanceToPlayer() < ComboOption.GetSlider("ComboRRange")) { return; }
 
-                    if (target.Health + target.HPRegenRate * 3 > R.GetDamage(target))
-                    {
-                        return;
-                    }
+                    if (_Target.Health + _Target.HPRegenRate * 3 > R.GetDamage(_Target)) { return; }
 
-                    var RCollision =
-                         HesaEngine.SDK.Collision
-                            .GetCollision(new List<Vector3> { target.ServerPosition },
-                                new PredictionInput
-                                {
-                                    Delay = R.Delay,
-                                    Radius = R.Width,
-                                    Speed = R.Speed,
-                                    Unit = Me,
-                                    UseBoundingRadius = true,
-                                    Collision = true,
-                                    CollisionObjects = new[] { CollisionableObjects.Heroes, CollisionableObjects.YasuoWall }
-                                })
-                            .Any(x => x.NetworkId != target.NetworkId);
-
-                    if (RCollision)
-                    {
-                        return;
-                    }
-
-                    R.CastOnUnit(target, true);
+                    if (HesaEngine.SDK.Collision.GetCollision
+                    (
+                        new List<Vector3>
+                        {
+                            _Target.ServerPosition
+                        }, 
+                        new PredictionInput
+                        {
+                            Delay = R.Delay,
+                            Radius = R.Width,
+                            Speed = R.Speed,
+                            Unit = Me,
+                            UseBoundingRadius = true,
+                            Collision = true,
+                            CollisionObjects = new[] 
+                            {
+                                CollisionableObjects.Heroes,
+                                CollisionableObjects.YasuoWall
+                            }
+                        }
+                    ).Any(x => x.NetworkId != _Target.NetworkId)) { R.CastOnUnit(_Target, true); }
                 }
             }
         }
@@ -371,11 +326,10 @@
             {
                 if (HarassOption.UseQ && Q.IsReady())
                 {
-                    var target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical, true, ObjectManager.Heroes.Enemies.Where(x => !HarassOption.GetHarassTarget(x.ChampionName)));
-
-                    if (target.IsValidTarget(Q.Range))
+                    var _Target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical, true, ObjectManager.Heroes.Enemies.Where(x => !HarassOption.GetHarassTarget(x.ChampionName)));
+                    if (_Target.IsValidTarget(Q.Range))
                     {
-                        SpellManager.PredCast(Q, target);
+                        SpellManager.PredCast(Q, _Target);
                     }
                 }
             }
@@ -395,15 +349,13 @@
             {
                 if (LaneClearOption.UseQ && Q.IsReady())
                 {
-                    var minions = MinionManager.GetMinions(Me.Position, Q.Range);
-
-                    if (minions.Any())
+                    var _Minions = MinionManager.GetMinions(Me.Position, Q.Range);
+                    if (_Minions.Any())
                     {
-                        var QFarm = MinionManager.GetBestLineFarmLocation(minions.Select(x => x.Position.To2D()).ToList(), Q.Width, Q.Range);
-
-                        if (QFarm.MinionsHit >= LaneClearOption.GetSlider("LaneClearQCount"))
+                        var _FarmPredictionQ = MinionManager.GetBestLineFarmLocation(_Minions.Select(x => x.Position.To2D()).ToList(), Q.Width, Q.Range);
+                        if (_FarmPredictionQ.MinionsHit >= LaneClearOption.GetSlider("LaneClearQCount"))
                         {
-                            Q.Cast(QFarm.Position, true);
+                            Q.Cast(_FarmPredictionQ.Position, true);
                         }
                     }
                 }
@@ -416,11 +368,10 @@
             {
                 if (JungleClearOption.UseQ && Q.IsReady())
                 {
-                    var mobs = MinionManager.GetMinions(Me.Position, Q.Range, MinionTypes.All, MinionTeam.Neutral, MinionOrderTypes.MaxHealth);
-
-                    if (mobs.Any())
+                    var _Mobs = MinionManager.GetMinions(Me.Position, Q.Range, MinionTypes.All, MinionTeam.Neutral, MinionOrderTypes.MaxHealth);
+                    if (_Mobs.Any())
                     {
-                        Q.Cast(mobs.FirstOrDefault(), true);
+                        Q.Cast(_Mobs.FirstOrDefault(), true);
                     }
                 }
             }
@@ -440,15 +391,13 @@
 
             if (E.IsReady() && Q.IsReady())
             {
-                var target = TargetSelector.GetSelectedTarget() ??
-                    TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
-
-                if (target.IsValidTarget(E.Range))
+                var _Target = TargetSelector.GetSelectedTarget() ?? TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                if (_Target.IsValidTarget(E.Range))
                 {
-                    if (E.GetPrediction(target).CollisionObjects.Count == 0 && E.CanCast(target))
+                    if (E.GetPrediction(_Target).CollisionObjects.Count == 0 && E.CanCast(_Target))
                     {
-                        E.Cast(target);
-                        SpellManager.PredCast(Q, target);
+                        E.Cast(_Target);
+                        SpellManager.PredCast(Q, _Target);
                     }
                 }
             }
@@ -456,22 +405,22 @@
 
         private static void OnCreate(GameObject sender, EventArgs Args)
         {
-            var Rengar = ObjectManager.Heroes.Enemies.Find(heros => heros.ChampionName.Equals("Rengar"));
-            var Khazix = ObjectManager.Heroes.Enemies.Find(heros => heros.ChampionName.Equals("Khazix"));
+            var _Rengar = ObjectManager.Heroes.Enemies.Find(heros => heros.ChampionName.Equals("Rengar"));
+            var _Khazix = ObjectManager.Heroes.Enemies.Find(heros => heros.ChampionName.Equals("Khazix"));
 
-            if (Rengar != null && MiscOption.GetBool("AntiRengar"))
+            if (_Rengar != null && MiscOption.GetBool("AntiRengar"))
             {
                 if (sender.Name == "Rengar_LeapSound.troy" && sender.Position.Distance(Me.Position) < E.Range)
                 {
-                    E.Cast(Rengar.Position, true);
+                    E.Cast(_Rengar.Position, true);
                 }
             }
 
-            if (Khazix != null && MiscOption.GetBool("AntiKhazix"))
+            if (_Khazix != null && MiscOption.GetBool("AntiKhazix"))
             {
                 if (sender.Name == "Khazix_Base_E_Tar.troy" && sender.Position.Distance(Me.Position) <= 300)
                 {
-                    E.Cast(Khazix.Position, true);
+                    E.Cast(_Khazix.Position, true);
                 }
             }
         }
@@ -497,19 +446,16 @@
 
         private static void OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs Args)
         {
-            if (!sender.IsMe)
-            {
-                return;
-            }
+            if (!sender.IsMe) { return; }
 
             if (Args.SData.Name == Q.Instance.SpellData.Name)
             {
-                lastQTime = Utils.TickCount;
+                LastCastTickQ = Utils.TickCount;
             }
 
             if (Args.SData.Name == W.Instance.SpellData.Name)
             {
-                lastQTime = Utils.TickCount;
+                LastCastTickW = Utils.TickCount;
             }
         }
     }
